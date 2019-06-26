@@ -72,11 +72,11 @@ HTseq count [to get counts of reads to each gene or exon] -> Edge R -> different
     
 3) mapping may take a while, so consider submitting to the hpcc queue
 
-    python ~john3784/Github/parse_scripts/qsub_hpc.py -f submit -c SRA_mapping.runcc -wd /mnt/home/john3784/2-specialized_metab_project/Solanaceae/Slycopersicum/ -m 10 -w 239 -mo SRAToolkit,Trimmomatic,TopHat2,Boost,SAMTools,fastqc,python
+    python ~john3784/Github/parse_scripts/qsub_slurm.py -f submit -c SE_SRA_files.txt.runcc -wd /mnt/scratch/john3784/RNA_seq/SE_SRA_files/ -m 10 -w 239 -mop yes -mo GCC/5.4.0-2.26,OpenMPI/1.10.3,Trimmomatic,TopHat/2.1.1,Bowtie2/2.3.2,SAMtools/1.5,python
 
 # Map RNA seq reads multiple files
 
-1) this script makes a runcc file to map each sra file in a list: *you must make separate lists for SE or PE 
+1) this script makes a runcc file to map each sra file in a list: *you must make separate lists for SE or PE. If using fastq files, designate -fastq_file T
 
     ProcessSRA_hpcc-batch_runcc.py [SRA file list] [full path to bowtie index] [0 for SE, 1 for PE]
 
@@ -84,7 +84,8 @@ HTseq count [to get counts of reads to each gene or exon] -> Edge R -> different
     
 2) qsub runcc file
 
-    python ~john3784/Github/parse_scripts/qsub_hpc.py -f submit -c SE_SRA_files.txt.runcc -wd /mnt/scratch/john3784/RNA_seq/SE_SRA_files/ -m 10 -w 239
+    python ~john3784/Github/parse_scripts/qsub_slurm.py -f submit -c SE_SRA_files.txt.runcc -wd /mnt/scratch/john3784/RNA_seq/SE_SRA_files/ -m 10 -w 239 -mop yes -mo GCC/5.4.0-2.26,OpenMPI/1.10.3,Trimmomatic,TopHat/2.1.1,Bowtie2/2.3.2,SAMtools/1.5,python
+
     
 # Check for % reads mapped
 
